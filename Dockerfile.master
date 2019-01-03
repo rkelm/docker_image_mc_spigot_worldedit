@@ -1,6 +1,6 @@
 FROM rkelm/spigot_minecraft:SED_REPLACE_TAG_APP_VERSION
 
-ENV APP_VERSION 1.11.2
+ENV APP_VERSION 1.13.2
 ENV APP_NAME Spigot WE Minecraft
 
 ADD rootfs /
