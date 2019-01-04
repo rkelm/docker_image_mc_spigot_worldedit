@@ -41,7 +41,7 @@ else
 fi
 
 # Prepare rootfs.
-# jar_file=minecraft_server.${APP_VERSION}.jar
+# jar_file=minecraft_server.${app_version}.jar
 worldedit_jar="${project_dir}/$2"
 worldguard_jar="${project_dir}/$3"
 
@@ -67,11 +67,11 @@ cp "${worldguard_jar}" "${plugins_dir}"
 
 # Rewrite base image tag in Dockerfile. (ARG Variables support in FROM starting in docker v17.)
 echo '# This file is automatically created from Dockerfile.master. DO NOT EDIT! EDIT Dockerfile.master!' > "${project_dir}/Dockerfile"
-sed "1 s/SED_REPLACE_TAG_APP_VERSION/${APP_VERSION}/" "${project_dir}/Dockerfile.master" >> "${project_dir}/Dockerfile"
+sed "1 s/SED_REPLACE_TAG_APP_VERSION/${app_version}/" "${project_dir}/Dockerfile.master" >> "${project_dir}/Dockerfile"
 
 # Build.
 echo "Building $local_repo_tag"
-APP_VERSION="${APP_VERSION}" docker build "${project_dir}" -t "${local_repo_tag}"
+APP_VERSION="${app_version}" docker build "${project_dir}" -t "${local_repo_tag}"
 errchk $? 'Docker build failed.'
 
 # Get image id.
