@@ -21,8 +21,8 @@ if [ -z "$local_repo_path" ] || [ -z "$remote_repo_path" ] ; then
 fi
 
 
-APP_VERSION=$1
-image_tag=$APP_VERSION
+app_version=$1
+image_tag=$app_version
 
 # The project directory is the folder containing this script.
 project_dir=$( dirname "$0" )
