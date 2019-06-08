@@ -12,7 +12,7 @@ errchk() {
 # Assign configuration values here or set environment variables before calling script.
 local_repo_path="$BAKERY_LOCAL_REPO_PATH"
 remote_repo_path="$BAKERY_REMOTE_REPO_PATH"
-repo_name="spigot_we_minecraft"
+repo_name="spigot_we_minecraft_2"
 
 # Some options may be edited directly in the Dockerfile.master.
 
@@ -54,7 +54,7 @@ rootfs="${project_dir}/rootfs"
 echo "Cleaning up rootfs from previous build."
 rm -frd "$rootfs"
 
-plugins_dir="${rootfs}/opt/mc/server/plugins"
+plugins_dir="${rootfs}/opt/mc/plugins_jar"
 mkdir -p "${plugins_dir}"
 
 chmod +x "${worldedit_jar}"
@@ -71,7 +71,7 @@ sed "1 s/SED_REPLACE_TAG_APP_VERSION/${app_version}/" "${project_dir}/Dockerfile
 
 # Build.
 echo "Building $local_repo_tag"
-APP_VERSION="${app_version}" docker build "${project_dir}" -t "${local_repo_tag}"
+docker build "${project_dir}" --build-arg RCONPWD="${rconpwd}" --build-arg APP_VERSION="${app_version}" -t "${local_repo_tag}"
 errchk $? 'Docker build failed.'
 
 # Get image id.
