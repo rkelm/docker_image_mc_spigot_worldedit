@@ -1,6 +1,8 @@
-FROM rkelm/spigot_minecraft:SED_REPLACE_TAG_APP_VERSION
+FROM rkelm/spigot_minecraft_2:SED_REPLACE_TAG_APP_VERSION
 
-ENV APP_VERSION SED_REPLACE_TAG_APP_VERSION
+ARG APP_VERSION
+
+ENV APP_VERSION $APP_VERSION
 ENV APP_NAME Spigot WE Minecraft
 
 ADD rootfs /
@@ -19,7 +21,7 @@ RUN echo -e ' ************************************************** \n' \
   "                  Every app command and its parameters must be single or double quoted. \n" \
 '**************************************************' > /image_info.txt
 
-VOLUME ["${APP_DIR}/world_the_end", "${APP_DIR}/world_nether", "${APP_DIR}/world", "${APP_DIR}/logs"]
+VOLUME ["${SERVER_DIR}", "${SERVER_DIR}/logs"]
 
 EXPOSE 25565 25575
 
