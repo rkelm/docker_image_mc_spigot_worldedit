@@ -44,9 +44,12 @@ fi
 # jar_file=minecraft_server.${app_version}.jar
 worldedit_jar="${project_dir}/$2"
 worldguard_jar="${project_dir}/$3"
+vault_jar="${project_dir}/$4"
+permissions_jar="${project_dir}/$5"
 
-if [ ! -f "$worldedit_jar" -o ! -f "$worldguard_jar" ] ; then
-    echo "usage: $(basename $0) <mc version> <name of worldedit jar> <name of worldguard jar>"
+
+if [ ! -f "$worldedit_jar" -o ! -f "$worldguard_jar" -o ! -f "$vault_jar" -o ! -f "$permissions_jar" ] ; then
+    echo "usage: $(basename $0) <mc version> <name of worldedit jar> <.. worldguard jar> <.. vault jar> <.. permissions jar>"
     exit 1
 fi
 
@@ -59,9 +62,13 @@ mkdir -p "${plugins_dir}"
 
 chmod +x "${worldedit_jar}"
 chmod +x "${worldguard_jar}"
+chmod +x "${vault_jar}"
+chmod +x "${permissions_jar}"
 
 cp "${worldedit_jar}" "${plugins_dir}"
 cp "${worldguard_jar}" "${plugins_dir}"
+cp "${vault_jar}" "${plugins_dir}"
+cp "${permissions_jar}" "${plugins_dir}"
 
 # Create and copy config files?
 
@@ -71,7 +78,7 @@ sed "1 s/SED_REPLACE_TAG_APP_VERSION/${app_version}/" "${project_dir}/Dockerfile
 
 # Build.
 echo "Building $local_repo_tag"
-docker build "${project_dir}" --build-arg RCONPWD="${rconpwd}" --build-arg APP_VERSION="${app_version}" -t "${local_repo_tag}"
+docker build "${project_dir}" --no-cache --build-arg RCONPWD="${rconpwd}" --build-arg APP_VERSION="${app_version}" -t "${local_repo_tag}"
 errchk $? 'Docker build failed.'
 
 # Get image id.
