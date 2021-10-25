@@ -2,3 +2,7 @@
 /rootfs/
 worldedit-*.jar
 worldguard-*.jar
+LuckPerms-*.jar
+Vault*.jar
+test/*.log
+*~

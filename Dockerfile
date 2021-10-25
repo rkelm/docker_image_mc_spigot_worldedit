@@ -1,6 +1,5 @@
-FROM rkelm/spigot_minecraft_jdk8_2:SED_REPLACE_TAG_APP_VERSION
-
 ARG APP_VERSION
+FROM rkelm/minecraft_spigot:$APP_VERSION
 
 ENV APP_VERSION $APP_VERSION
 ENV APP_NAME Spigot WE Minecraft
@@ -25,4 +24,3 @@ VOLUME ["${SERVER_DIR}", "${SERVER_DIR}/logs"]
 EXPOSE 25565 25575
 
 CMD ["/bin/cat", "/image_info.txt"]
-
